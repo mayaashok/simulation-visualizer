@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react'
-import { Model as Rover } from '../../assets/Robo.jsx'
+import { Model as Rover } from '../../assets/Robo.tsx'
 
 type RobotProps = {
   trajectory: { x: number; z: number }[]
