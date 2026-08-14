@@ -1,16 +1,20 @@
-# av-visualizer
+# simulation-visualizer
 
-<img height="60" alt="car-tech" src="https://github.com/user-attachments/assets/f856198e-de88-48fd-9fe6-4ad715b9938a" />
+work in progress ...
 
-This sets up a Qt application for visualizing autonomous vehicle log data and simulating vehicle motion. It's intended as a prototype for ADAS-style playback and visualization tools in AV SIL workflows. Currently a work in progress...
 
-## Available Scripts
-#### In the main project directory, you can run:
+### Setup
+
 ```
-mkdir build
-cd build
-cmake ..
-cmake --build .
+bash
+git clone <repo-url>
+cd simulation-visualizer/frontend
+npm install
+npm run dev
 ```
-
-<a href="https://www.flaticon.com/free-icons/simulator" title="simulator icons">Simulator icons created by wanicon - Flaticon</a>
+<br>
+<br>
+<a target="_blank" href="https://icons8.com/icon/rHZRu2gIHb6j/3d-cube">3D Cube</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
+<a target="_blank" href="https://icons8.com/icon/xcjCDteAsQOF/3d-cube">3D Cube</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
+<br>
+<a target="_blank" href="https://poly.pizza/m/WRd1piJOfh">"Rover" by Quaternius</a> Licence at <a target="_blank" href="https://creativecommons.org/publicdomain/zero/1.0/">Creative Commons</a>
