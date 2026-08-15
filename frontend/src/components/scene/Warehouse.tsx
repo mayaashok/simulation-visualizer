@@ -3,6 +3,8 @@ import { useFrame } from '@react-three/fiber'
 import type { Dispatch, SetStateAction } from 'react'
 import { Robot } from './Robot'
 import { Obstacle } from './Obstacle'
+import { getRobotState } from '../../types/simulation'
+import { warehouseTrajectory,  LOOP_DURATION } from '../../types/trajectory'
 
 type WarehouseProps = {
   isPlaying: boolean
@@ -11,14 +13,6 @@ type WarehouseProps = {
   setPlaybackTime: Dispatch<SetStateAction<number>>
 }
 
-const trajectory = [
-  { x: 0, z: 0 },
-  { x: 5, z: 0 },
-  { x: 5, z: 5 },
-  { x: 0, z: 5 },
-  { x: 0, z: 0 },
-]
-
 export function Warehouse({
   isPlaying,
   speedMultiplier,
@@ -26,21 +20,21 @@ export function Warehouse({
   setPlaybackTime,
 }: WarehouseProps) {
 
-  const LOOP_DURATION = 20
-
   useFrame((_, delta) => {
-    // Only advance playback while the simulation is playing.
+    // Only advance simulation time while playing.
     if (!isPlaying) return
-
-    // Advance the replay according to the selected speed.
+  
+    // Advance time according to the selected playback speed.
     setPlaybackTime((previousTime) => {
       const nextTime =
         previousTime + delta * speedMultiplier
-
-      // Loop back to the beginning when the replay ends.
+  
+      // Loop back to the beginning when the simulation ends.
       return nextTime % LOOP_DURATION
     })
   })
+
+  const robotState = getRobotState(playbackTime)
 
   return (
     <group>
@@ -66,7 +60,7 @@ export function Warehouse({
 
       {/* Planned trajectory */}
       <Line
-        points={trajectory.map((point) => [
+          points={warehouseTrajectory.map((point) => [
           point.x,
           0.02,
           point.z,
@@ -75,10 +69,7 @@ export function Warehouse({
       />
 
       {/* Robot */}
-      <Robot
-        trajectory={trajectory}
-        playbackTime={playbackTime}
-      />
+      <Robot state={robotState} />
 
       {/* Obstacles */}
       <Obstacle

@@ -45,7 +45,6 @@
     0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
-
 /* Header */
 
 .controls-header {
@@ -120,7 +119,7 @@
   justify-content: center;
   gap: 7px;
 
-  padding: 9px 12px;
+  padding: 5px 12px;
 
   border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 8px;
@@ -205,4 +204,147 @@
 .speed-header select:focus {
   outline: none;
   border-color: rgba(255, 255, 255, 0.35);
+}
+
+
+/* Telemetry Controls */
+
+.telemetry-controls {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+
+  z-index: 10;
+
+  width: 260px;
+  padding: 18px;
+
+  box-sizing: border-box;
+
+  border: 1px solid rgba(15, 25, 45, 0.88);
+  border-radius: 5px;
+
+  background: rgba(15, 25, 45, 0.88);
+
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+
+  color: white;
+
+  font-family:
+    Inter,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
+  box-shadow:
+    0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.telemetry-section {
+  margin-top: 8px;
+}
+
+.telemetry-section-title {
+  margin-bottom: 3px;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 1.4px;
+  opacity: 0.55;
+}
+
+.telemetry-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+}
+
+.telemetry-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 8px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.telemetry-item span {
+  font-size: 10px;
+  opacity: 0.75;
+}
+
+.telemetry-item strong {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.telemetry-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 3px 0;
+  font-size: 10px;
+}
+
+.telemetry-row span {
+  opacity: 0.75;
+}
+
+.telemetry-row strong {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.telemetry-buttons {
+  display: flex;
+  justify-content: center;
+  padding-top: 10px;
+}
+
+.telemetry-button {
+  flex: 1;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  padding: 5px 12px;
+
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+
+  background: rgba(255, 255, 255, 0.08);
+
+  color: white;
+
+  font-size: 13px;
+  font-weight: 500;
+
+  cursor: pointer;
+
+  transition:
+    background 0.15s ease,
+    transform 0.15s ease;
+}
+
+.telemetry-button:hover {
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.telemetry-button:active {
+  transform: scale(0.96);
+}
+
+.telemetry-button:disabled {
+  cursor: default;
+  opacity: 0.8;
+}
+
+.database-logo {
+  /* width: 20%; */
+  height: 20px;
+  object-fit: contain;
 }
