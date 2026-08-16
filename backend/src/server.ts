@@ -83,5 +83,5 @@ app.post('/api/telemetry', async (req, res) => {
 
 // Start the Express server.
 app.listen(PORT, () => {
-  console.log(`Backend running on http://localhost:${PORT}`)
+  console.log(`Backend running on port ${PORT}`)
 })

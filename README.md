@@ -5,13 +5,20 @@ work in progress ...
 
 ### Setup
 ```
+// Clone Repo
 git clone <repo-url>
-cd simulation-visualizer/frontend
+cd simulation-visualizer
+// Frontend Terminal (runs at http://localhost:5173)
+cd frontend
 npm install
-npm run dev -> localhost:5173
+npm run dev
+// Backend Terminal (runs at http://localhost:3001)
 cd simulation-visualizer/backend
 npm install
-npm run dev -> localhost:3001
+npm run dev
+// Production Build Backend
+npm run build
+npm start
 ```
 <br>
 <br>

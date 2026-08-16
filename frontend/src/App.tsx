@@ -15,43 +15,48 @@ function App() {
   const [playbackTime, setPlaybackTime] =
     useState(0)
 
+  const [isSaving, setIsSaving] = useState(false)
   const [saveStatus, setSaveStatus] = useState<
-    'idle' | 'saving' | 'saved'
+    'idle' | 'saved' | 'error'
   >('idle')
 
   // Calculate the robot's simulated state at the current playback time.
   const robotState = getRobotState(playbackTime)
 
   const saveTelemetry = async () => {
-    setSaveStatus('saving')
+    setIsSaving(true)
+    setSaveStatus('idle')
     try {
-      const response = await fetch('http://localhost:3001/api/telemetry', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          timestamp: robotState.timestamp,
-          x: robotState.position.x,
-          y: robotState.position.y,
-          z: robotState.position.z,
-          velocity: robotState.velocity,
-          acceleration: robotState.acceleration,
-          angle: robotState.angle,
-        }),
-      })
-  
+      const response = await fetch(
+        'https://simulation-visualizer-api.onrender.com/api/telemetry',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            timestamp: robotState.timestamp,
+            x: robotState.position.x,
+            y: robotState.position.y,
+            z: robotState.position.z,
+            velocity: robotState.velocity,
+            acceleration: robotState.acceleration,
+            angle:
+              robotState.angle * 180 / Math.PI,
+          }),
+        }
+      )
       if (!response.ok) {
         throw new Error('Failed to save telemetry')
       }
       setSaveStatus('saved')
-      setTimeout(() => {setSaveStatus('idle')}, 1500)
-
-      console.log('Telemetry saved successfully')
+      setTimeout(() => {setSaveStatus('idle')}, 2000)
     } catch (error) {
-      setSaveStatus('idle')
-
-      console.error('Error saving telemetry:', error)
+      console.error(error)
+      setSaveStatus('error')
+      setTimeout(() => {setSaveStatus('idle')}, 2000)
+    } finally {
+      setIsSaving(false)
     }
   }
 
@@ -220,12 +225,19 @@ function App() {
         </div>
          {/* Database button */}
          <div className="telemetry-buttons">
-          <button className="telemetry-button" onClick={saveTelemetry} disabled={saveStatus !== 'idle'}>
-            <span>{saveStatus === 'saving' ? 'Saving...' :
-                  saveStatus === 'saved' ? '✓ Saved' :
-                  'Save Dashboard Data'}
+         <button className="telemetry-button" onClick={saveTelemetry} disabled={isSaving}>
+            <span>
+              {isSaving
+                ? 'Saving...'
+                : saveStatus === 'saved'
+                ? '✓ Saved'
+                : saveStatus === 'error'
+                ? '✕ Error'
+                : 'Save Dashboard Data'}
             </span>
-            {saveStatus === 'idle' && (<img src="/database.png" className="database-logo"/>)}
+            {!isSaving && saveStatus === 'idle' && (
+              <img src="/database.png" className="database-logo"/>
+            )}
           </button>
         </div>
       </div>
