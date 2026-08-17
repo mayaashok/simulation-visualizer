@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { Model as Rover } from '../../assets/Robo.tsx'
-import type { RobotState } from '../../types/states'
+import type { RobotState } from '../states.ts'
 
 type RobotProps = {
   state: RobotState

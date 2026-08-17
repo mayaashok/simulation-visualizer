@@ -1,9 +1,10 @@
 import { Canvas } from '@react-three/fiber'
 import { OrbitControls } from '@react-three/drei'
-import { Warehouse } from './components/scene/Warehouse.tsx'
+import { Warehouse } from './components/aws-warehouse/Warehouse.tsx'
 import { useState } from 'react'
-import { LOOP_DURATION } from './types/trajectory'
-import { getRobotState } from './types/simulation'
+import { getRobotState, ROBOT_LOOP_DURATION} from './components/aws-warehouse/warehouse-sim.ts'
+import { getAEBState, AEB_LOOP_DURATION} from './components/gm-aeb-track/aeb-sim.ts'
+import { AEB_Track } from './components/gm-aeb-track/AEB_Track.tsx'
 import './App.css'
 
 function App() {
@@ -20,8 +21,12 @@ function App() {
     'idle' | 'saved' | 'error'
   >('idle')
 
-  // Calculate the robot's simulated state at the current playback time.
+  const [selectedScene, setSelectedScene] = useState('warehouse')
+
+  // Calculate the robot/car simulated state at the current playback time.
   const robotState = getRobotState(playbackTime)
+  const aebState = getAEBState(playbackTime)
+  const activeState = selectedScene === 'aeb' ? aebState : robotState
 
   const saveTelemetry = async () => {
     setIsSaving(true)
@@ -35,14 +40,14 @@ function App() {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            timestamp: robotState.timestamp,
-            x: robotState.position.x,
-            y: robotState.position.y,
-            z: robotState.position.z,
-            velocity: robotState.velocity,
-            acceleration: robotState.acceleration,
+            timestamp: activeState.timestamp,
+            x: activeState.position.x,
+            y: activeState.position.y,
+            z: activeState.position.z,
+            velocity: activeState.velocity,
+            acceleration: activeState.acceleration,
             angle:
-              robotState.angle * 180 / Math.PI,
+              activeState.angle * 180 / Math.PI,
           }),
         }
       )
@@ -77,12 +82,23 @@ function App() {
             intensity={2}
           />
 
-          <Warehouse
-            isPlaying={isPlaying}
-            speedMultiplier={speedMultiplier}
-            playbackTime={playbackTime}
-            setPlaybackTime={setPlaybackTime}
-          />
+          {selectedScene === 'warehouse' && (
+            <Warehouse
+              isPlaying={isPlaying}
+              speedMultiplier={speedMultiplier}
+              playbackTime={playbackTime}
+              setPlaybackTime={setPlaybackTime}
+            />
+          )}
+
+          {selectedScene === 'aeb' && (
+            <AEB_Track
+              isPlaying={isPlaying}
+              speedMultiplier={speedMultiplier}
+              playbackTime={playbackTime}
+              setPlaybackTime={setPlaybackTime}
+            />
+          )}
 
           <OrbitControls />
         </Canvas>
@@ -94,11 +110,17 @@ function App() {
           <img src="/website.png" className="controls-logo"/>
           <div className="controls-header-text">
             <div className="controls-label">SIM - VIS</div>
-              <select className="scene-select" defaultValue="warehouse">
+              {/* <select className="scene-select" defaultValue="warehouse">
                 <option value="warehouse">Warehouse (AGV)</option>
                 <option value="obstacle-course">ACC Track (ADAS)</option>
                 <option value="navigation">AEB Track (ADAS)</option>
+              </select> */}
+
+              <select className="scene-select" value={selectedScene} onChange={(event) => setSelectedScene(event.target.value)}>
+                <option value="warehouse">Warehouse Robot</option>
+                <option value="aeb">AEB Scenario</option>
               </select>
+
             </div>
         </div>
         <div className="controls-divider" />
@@ -126,7 +148,7 @@ function App() {
           <input
             type="range"
             min="0"
-            max={LOOP_DURATION}
+            max={selectedScene === 'aeb' ? AEB_LOOP_DURATION : ROBOT_LOOP_DURATION}
             step="0.1"
             value={playbackTime}
             onChange={(event) =>
@@ -168,7 +190,9 @@ function App() {
           <img src="/viewer.png" className="controls-logo"/>
           <div className="controls-header-text">
             <div className="controls-label">DASHBOARD</div>
-            <div className="controls-title">Robot Telemetry</div>
+            <div className="controls-title">
+              {selectedScene === 'aeb' ? 'Host Vehicle Telemetry' : 'Robot Telemetry'}
+            </div>
           </div>
         </div>
         <div className="controls-divider" />
@@ -176,7 +200,7 @@ function App() {
         <div className="telemetry-section">
           <div className="telemetry-section-title">SIMULATION</div>
           <div className="telemetry-row"><span>TIMESTAMP</span>
-            <strong>{robotState.timestamp.toFixed(1)} s</strong>
+            <strong>{activeState.timestamp.toFixed(1)} s</strong>
           </div>
         </div>
         {/* Position */}
@@ -185,15 +209,15 @@ function App() {
           <div className="telemetry-grid">
             <div className="telemetry-item">
               <span>X</span>
-              <strong>{robotState.position.x.toFixed(2)} m</strong>
+              <strong>{activeState.position.x.toFixed(2)} m</strong>
             </div>
             <div className="telemetry-item">
               <span>Y</span>
-              <strong>{robotState.position.y.toFixed(2)} m</strong>
+              <strong>{activeState.position.y.toFixed(2)} m</strong>
             </div>
             <div className="telemetry-item">
               <span>Z</span>
-              <strong>{robotState.position.z.toFixed(2)} m</strong>
+              <strong>{activeState.position.z.toFixed(2)} m</strong>
             </div>
           </div>
         </div>
@@ -202,11 +226,11 @@ function App() {
           <div className="telemetry-section-title">MOTION</div>
           <div className="telemetry-row">
             <span>VELOCITY</span>
-            <strong>{robotState.velocity.toFixed(2)} m/s</strong>
+            <strong>{activeState.velocity.toFixed(2)} m/s</strong>
           </div>
           <div className="telemetry-row">
             <span>ACCELERATION</span>
-            <strong>{robotState.acceleration.toFixed(2)} m/s²</strong>
+            <strong>{activeState.acceleration.toFixed(2)} m/s²</strong>
           </div>
         </div>
         {/* Orientation */}
@@ -216,7 +240,7 @@ function App() {
             <span>ANGLE</span>
             <strong>
               {(
-                robotState.angle *
+                activeState.angle *
                 180 /
                 Math.PI
               ).toFixed(1)}°

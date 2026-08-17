@@ -18,5 +18,5 @@ mysql> USE defaultdb;
 mysql> SHOW TABLES;
 % mysql -h DB_HOST -P DB_PORT -u DB_USER -p defaultdb < .../aiven-schema.sql
 mysql> USE defaultdb; SHOW TABLES; DESCRIBE telemetry;
-mysql> SELECT * FROM telemetry;
+mysql> USE defaultdb; SELECT * FROM telemetry;
 */

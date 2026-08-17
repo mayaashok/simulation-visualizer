@@ -2,6 +2,7 @@
   position: relative;
   width: 100%;
   height: 100vh;
+  cursor: crosshair;
 }
 
 .app {
@@ -13,6 +14,7 @@
 
 .simulation-controls {
   position: absolute;
+  cursor: default;
   top: 24px;
   left: 24px;
 
@@ -211,6 +213,7 @@
 
 .telemetry-controls {
   position: absolute;
+  cursor: default;
   top: 24px;
   right: 24px;
 

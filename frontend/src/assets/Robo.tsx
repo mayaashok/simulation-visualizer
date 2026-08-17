@@ -31,61 +31,13 @@ export function Model(props: ThreeElements['group']) {
   return (
     <group {...props} dispose={null}>
       <group position={[7.159, 0, 0]}>
-      <mesh
-        geometry={nodes.Wheel_1001.geometry}
-        material={materials.Atlas}
-        position={[-5.363, 0.526, -1.764]}
-        rotation={[-Math.PI / 2, 0, 0]}
-        scale={100}
-      />
-
-      <mesh
-        geometry={nodes.Wheel_2001.geometry}
-        material={materials.Atlas}
-        position={[-8.955, 0.526, -3.3]}
-        rotation={[-Math.PI / 2, 0, 0]}
-        scale={100}
-      />
-
-      <mesh
-        geometry={nodes.Wheel_3001.geometry}
-        material={materials.Atlas}
-        position={[-5.363, 0.526, -3.3]}
-        rotation={[-Math.PI / 2, 0, 0]}
-        scale={100}
-      />
-
-      <mesh
-        geometry={nodes.Wheel_6.geometry}
-        material={materials.Atlas}
-        position={[-8.955, 0.526, -1.764]}
-        rotation={[-Math.PI / 2, 0, 0]}
-        scale={100}
-      />
-
-      <mesh
-        geometry={nodes.Rover_2.geometry}
-        material={materials.Atlas}
-        position={[-7.159, 0, 0]}
-        rotation={[-Math.PI / 2, 0, 0]}
-        scale={100}
-      />
-
-      <mesh
-        geometry={nodes.Wheel_2002.geometry}
-        material={materials.Atlas}
-        position={[-8.955, 0.526, 1.897]}
-        rotation={[-Math.PI / 2, 0, 0]}
-        scale={100}
-      />
-
-      <mesh
-        geometry={nodes.Wheel_3002.geometry}
-        material={materials.Atlas}
-        position={[-5.363, 0.526, 1.897]}
-        rotation={[-Math.PI / 2, 0, 0]}
-        scale={100}
-      />
+      <mesh geometry={nodes.Wheel_1001.geometry} material={materials.Atlas} position={[-5.363, 0.526, -1.764]} rotation={[-Math.PI / 2, 0, 0]} scale={100}/>
+      <mesh geometry={nodes.Wheel_2001.geometry} material={materials.Atlas} position={[-8.955, 0.526, -3.3]} rotation={[-Math.PI / 2, 0, 0]} scale={100}/>
+      <mesh geometry={nodes.Wheel_3001.geometry} material={materials.Atlas} position={[-5.363, 0.526, -3.3]} rotation={[-Math.PI / 2, 0, 0]} scale={100}/>
+      <mesh geometry={nodes.Wheel_6.geometry} material={materials.Atlas} position={[-8.955, 0.526, -1.764]} rotation={[-Math.PI / 2, 0, 0]} scale={100}/>
+      <mesh geometry={nodes.Rover_2.geometry} material={materials.Atlas} position={[-7.159, 0, 0]} rotation={[-Math.PI / 2, 0, 0]} scale={100}/>
+      <mesh geometry={nodes.Wheel_2002.geometry} material={materials.Atlas} position={[-8.955, 0.526, 1.897]} rotation={[-Math.PI / 2, 0, 0]} scale={100}/>
+      <mesh geometry={nodes.Wheel_3002.geometry} material={materials.Atlas} position={[-5.363, 0.526, 1.897]} rotation={[-Math.PI / 2, 0, 0]} scale={100}/>
       </group>
     </group>
   )

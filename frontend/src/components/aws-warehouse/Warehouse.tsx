@@ -3,8 +3,7 @@ import { useFrame } from '@react-three/fiber'
 import type { Dispatch, SetStateAction } from 'react'
 import { Robot } from './Robot'
 import { Obstacle } from './Obstacle'
-import { getRobotState } from '../../types/simulation'
-import { warehouseTrajectory,  LOOP_DURATION } from '../../types/trajectory'
+import { getRobotState, warehouseTrajectory, ROBOT_LOOP_DURATION } from './warehouse-sim'
 
 type WarehouseProps = {
   isPlaying: boolean
@@ -30,7 +29,7 @@ export function Warehouse({
         previousTime + delta * speedMultiplier
   
       // Loop back to the beginning when the simulation ends.
-      return nextTime % LOOP_DURATION
+      return nextTime % ROBOT_LOOP_DURATION
     })
   })
 

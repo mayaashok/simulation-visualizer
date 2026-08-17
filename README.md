@@ -20,6 +20,7 @@ npm run dev
 npm run build
 npm start
 ```
+#### Warning: Aiven MySQL Database power-off during inactivity
 <br>
 <br>
 <a target="_blank" href="https://icons8.com/icon/rHZRu2gIHb6j/3d-cube">3D Cube</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
@@ -28,3 +29,5 @@ npm start
 <a target="_blank" href="https://icons8.com/icon/qyLeM0sZP9OJ/database">Database</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
 <br>
 <a target="_blank" href="https://poly.pizza/m/WRd1piJOfh">"Rover" by Quaternius</a> Licence at <a target="_blank" href="https://creativecommons.org/publicdomain/zero/1.0/">Creative Commons</a>
+<a target="_blank" href="https://poly.pizza/m/unqqkULtRU">"Car" by Quaternius</a> Licence at <a target="_blank" href="https://creativecommons.org/publicdomain/zero/1.0/">Creative Commons</a>
+<a target="_blank" href="https://poly.pizza/m/dVLJ5CjB0h">"Red Car" by J-Toastie</a> Licence at <a target="_blank" href="https://creativecommons.org/licenses/by/3.0">Creative Commons</a>
